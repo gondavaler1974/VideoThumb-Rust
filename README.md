@@ -8,6 +8,25 @@ The implementation uses Rust-specific memory management, caching, bounded parall
 
 The project is fully independent from the C++ VideoThumb repository. It can be cloned, built, installed, and used on its own.
 
+
+## What is VideoThumb Rust?
+
+Fast 64-bit video thumbnail plugin for Total Commander.
+
+VideoThumb Rust was created primarily to solve a Windows / Total Commander edge case where video thumbnails fail when files are accessed through a local directory symbolic link whose target is an SMB/UNC network share.
+
+Conceptually:
+
+```text
+Local directory symlink
+        ↓
+SMB / UNC network share
+```
+
+Windows Explorer and standard Total Commander thumbnail providers may fail to generate video thumbnails through this path even though the same files work correctly when the UNC path is opened directly.
+
+VideoThumb Rust bypasses the Windows Shell thumbnail path and decodes thumbnails directly with FFmpeg libraries.
+
 ## Version
 
 Current version: **1.0.0**
