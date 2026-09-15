@@ -1,0 +1,32 @@
+[package]
+name = "videothumb-rs"
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.88"
+description = "Rust version of the VideoThumb Total Commander WLX video thumbnail plugin"
+license = "MIT"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+image = { version = "0.25.10", default-features = false, features = [
+	"bmp",
+	"gif",
+	"jpeg",
+	"png",
+	"tiff",
+	"webp",
+] }
+zip = { version = "=8.6.0", default-features = false, features = ["deflate"] }
+
+[build-dependencies]
+cc = "1.4.6"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "unwind"
+strip = "symbols"

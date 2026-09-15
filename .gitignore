@@ -1,0 +1,12 @@
+/target/
+/dist/
+/ffmpeg-sdk/
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.dll
+*.wlx64
+
+/src_prev/
+/.cargo/config.toml
