@@ -163,7 +163,50 @@ if (-not (Test-Path $ini)) {
 	throw "VideoThumb.ini not found: $ini"
 }
 
-Copy-Item $ini $dist
+Copy-Item `
+	$ini `
+(Join-Path $dist 'VideoThumb.ini')
+
+# ------------------------------------------------------------
+# Copy documentation and license files
+# ------------------------------------------------------------
+
+$readme = Join-Path $root 'README.md'
+$projectLicense = Join-Path $root 'LICENSE'
+$thirdPartyLicenses = Join-Path $root 'THIRD-PARTY-LICENSES.txt'
+$ffmpegLicense = Join-Path $ffroot.FullName 'LICENSE.txt'
+
+if (-not (Test-Path $readme)) {
+	throw "README.md not found: $readme"
+}
+
+if (-not (Test-Path $projectLicense)) {
+	throw "Project license not found: $projectLicense"
+}
+
+if (-not (Test-Path $thirdPartyLicenses)) {
+	throw "Third-party license file not found: $thirdPartyLicenses"
+}
+
+if (-not (Test-Path $ffmpegLicense)) {
+	throw "FFmpeg license not found: $ffmpegLicense"
+}
+
+Copy-Item `
+	$readme `
+(Join-Path $dist 'README.md')
+
+Copy-Item `
+	$projectLicense `
+(Join-Path $dist 'VideoThumb-LICENSE.txt')
+
+Copy-Item `
+	$thirdPartyLicenses `
+(Join-Path $dist 'THIRD-PARTY-LICENSES.txt')
+
+Copy-Item `
+	$ffmpegLicense `
+(Join-Path $dist 'FFmpeg-LICENSE.txt')
 
 # ------------------------------------------------------------
 # Copy the required FFmpeg runtime DLLs
@@ -190,7 +233,9 @@ ForEach-Object {
 	}
 
 	$files | ForEach-Object {
-		Copy-Item $_.FullName $dist
+		Copy-Item `
+			$_.FullName `
+			$dist
 	}
 }
 
